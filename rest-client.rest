@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:3000
+
+### Add Default Job
+POST {{baseUrl}}/default-job
+
+### Add Not Handled Job
+POST {{baseUrl}}/not-handled-job
+
+### Add Delayed Job
+POST {{baseUrl}}/delayed-job
+
+### Add Repeatable Job
+POST {{baseUrl}}/repeatable-job
