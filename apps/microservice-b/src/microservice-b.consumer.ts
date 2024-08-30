@@ -45,19 +45,17 @@ export class MicroserviceBConsumer extends WorkerHost {
     }
   }
 
-  processDefaultJob(job: Job<any, any, string>) {
-    return new Promise(() => {
-      setTimeout(() => {
-        return { status: 'completed' };
-      }, 2000);
-    });
+  async processDefaultJob(job: Job<any, any, string>) {
+    setTimeout(() => {
+      return { status: 'completed' };
+    }, 5000);
   }
 
-  processDelayedJob(job: Job<any, any, string>) {
+  async processDelayedJob(job: Job<any, any, string>) {
     return { status: 'completed' };
   }
 
-  processRepeatableJob(job: Job<any, any, string>) {
+  async processRepeatableJob(job: Job<any, any, string>) {
     return { status: 'completed' };
   }
 }

@@ -57,7 +57,7 @@ export class MicroserviceAProducer {
       },
       {
         repeat: {
-          // every: 10000,
+          every: 10000,
           limit: 3,
           // pattern: '*/10 * * * * *',
         },
