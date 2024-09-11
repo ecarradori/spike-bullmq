@@ -25,30 +25,35 @@ export class MicroserviceBConsumer extends WorkerHost {
   @OnWorkerEvent('completed')
   onCompleted(job: Job<any, any, string>) {
     console.log(
-      `Job ${job.id} of type ${job.name} completed with result ${job.returnvalue}`,
+      `Job ${job.id} of type ${job.name} completed with result ${JSON.stringify(
+        job.returnvalue,
+        null,
+        2,
+      )}`,
     );
   }
 
   async process(job: Job<any, any, string>): Promise<any> {
     switch (job.name) {
       case 'microservice-a-default-job':
-        this.processDefaultJob(job);
-        break;
+        return await this.processDefaultJob(job);
       case 'microservice-a-delayed-job':
-        this.processDelayedJob(job);
-        break;
+        return await this.processDelayedJob(job);
       case 'microservice-a-repeatable-job':
-        this.processRepeatableJob(job);
-        break;
+        return await this.processRepeatableJob(job);
       default:
         throw new Error(`Cannot handle job ${job.name}`);
     }
   }
 
   async processDefaultJob(job: Job<any, any, string>) {
-    setTimeout(() => {
-      return { status: 'completed' };
-    }, 5000);
+    //? https://docs.bullmq.io/guide/returning-job-data
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ status: 'completed' });
+      }, 3000);
+    });
+    // return { status: 'completed' };
   }
 
   async processDelayedJob(job: Job<any, any, string>) {
