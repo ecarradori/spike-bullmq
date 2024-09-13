@@ -21,6 +21,12 @@ import { MicroserviceAListener } from './microservice-a.listener';
           type: 'exponential',
           delay: 1000,
         },
+        removeOnComplete: {
+          age: 60 * 60 * 24 * 30, // 1 month in seconds
+        },
+        removeOnFail: {
+          age: 60 * 60 * 24 * 90, // 3 months in seconds
+        },
       },
     }),
   ],

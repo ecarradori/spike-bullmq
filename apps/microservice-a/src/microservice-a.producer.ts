@@ -10,9 +10,17 @@ export class MicroserviceAProducer {
 
   async addDefaultJob() {
     console.log('Adding default job...');
-    await this.microserviceAQueue.add('microservice-a-default-job', {
-      data: 'Microservice A defaultJob',
-    });
+    const jobId = crypto.randomUUID();
+    console.log('jobId', jobId);
+    await this.microserviceAQueue.add(
+      'microservice-a-default-job',
+      {
+        data: 'Microservice A defaultJob',
+      },
+      {
+        jobId,
+      },
+    );
     console.log('Default job added');
   }
 
@@ -24,6 +32,7 @@ export class MicroserviceAProducer {
         data: 'Microservice A notHandledJob',
       },
       {
+        jobId: crypto.randomUUID(),
         // attempts: 7,
         // backoff: {
         //   type: 'exponential',
